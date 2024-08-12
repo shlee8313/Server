@@ -11,15 +11,22 @@ const server = http.createServer(app);
 app.use(cors());
 
 // Socket.IO 서버 설정 (CORS 옵션 포함)
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000", // 클라이언트의 주소
+//     methods: ["GET", "POST"],
+//     // allowedHeaders: ["my-custom-header"],
+//     credentials: true,
+//   },
+// });
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // 클라이언트의 주소
+    origin: "https://port-next-restaurant-system-ac2nlleg71ut.sel3.cloudtype.app", // 클라이언트의 주소
     methods: ["GET", "POST"],
     // allowedHeaders: ["my-custom-header"],
     credentials: true,
   },
 });
-
 io.on("connection", (socket) => {
   // console.log("New client connected");
   // console.log("Handshake data:", socket.handshake);
@@ -35,7 +42,7 @@ io.on("connection", (socket) => {
   socket.join(restaurantId);
 
   socket.on("newOrder", (data, callback) => {
-    // console.log("Received new order:", data);
+    console.log("Received new order:", data);
     // 주문 처리 로직
     // ...
 
@@ -58,7 +65,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("newQuickOrder", (data, callback) => {
-    // console.log("Received new quick order:", data);
+    console.log("Received new quick order:", data);
     // 주문 처리 로직
     // ...
 
